@@ -1,0 +1,5 @@
+--- 
+name: heart-disease-switzerland
+format: MulticlassClassification
+description: 123 examples, 22 features
+source: UCI Repository

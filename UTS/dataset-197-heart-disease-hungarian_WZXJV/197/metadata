@@ -1,0 +1,5 @@
+--- 
+name: heart-disease-hungarian
+format: MulticlassClassification
+description: 294 examples, 22 features
+source: UCI Repository

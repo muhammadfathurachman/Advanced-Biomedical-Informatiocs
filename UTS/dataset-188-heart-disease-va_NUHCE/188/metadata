@@ -1,0 +1,5 @@
+--- 
+name: heart-disease-va
+format: MulticlassClassification
+description: 200 examples, 22 features
+source: UCI Repository
