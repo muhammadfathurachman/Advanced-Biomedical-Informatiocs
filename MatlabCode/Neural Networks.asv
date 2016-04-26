@@ -1,0 +1,26 @@
+%% Neural Network Backpropagation
+clear;
+%% Load Data
+load datasetckdna.mat
+
+%% KNN Imputation for NA Values
+K = 3;
+tempdata =  datasetckdna;
+tempdata =  knnimpute(tempdata,K);
+
+
+%% Training Data and Testing
+
+HiddenNeuron = 20;
+REPEATED =  1;
+N = 10;
+
+for i = 1 : REPEATED
+    index =  crossvalind('Kfold',class, N);
+    for j = 1 : N
+        test = (index == i);
+        train = ~test;
+        x_test = tempdata(test,1:24);
+        y_test = tempdata(train,25);
+    end
+end
