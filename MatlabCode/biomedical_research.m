@@ -14,7 +14,7 @@ temp =  tempdataset(:,1);
 tempdataset(:,25) =  temp;
 tempdataset(:,1) =  temp_class;
 
-%Normalize data into 0-1
+%%Normalize data into 0-1
 for i = 2:25
     minval =  min(tempdataset(:,i));
     maxval = max(tempdataset(:,i));
@@ -26,7 +26,7 @@ end
 %Perform 10 Fold Crossvalidation
 N = 10;
 L_HN = 150;
-REPEATED  = 10;
+REPEATED  = 100;
 hasil_type = 8;
 result_sin = zeros(L_HN*N,hasil_type);
 result_sig = zeros(L_HN*N,hasil_type);
@@ -45,8 +45,8 @@ for c = 1: REPEATED
             train = ~test;
             n = 49;
             for k = 50 : (L_HN/2)
+            %%for k = 1 : L_HN   
              n = n+2;
-             
              %Save fold and number of hidden neuron that belong to sin result
              result_sin(counter,1) = n;
              result_sin(counter,2) = i;
@@ -70,11 +70,11 @@ for c = 1: REPEATED
              % 1.Training Time, 2.Testing Time, 3.Sensitivity, 
              % 4.Specificity, 5. Training Accuracy, 6. Testing Accuracy
              
-             [result_sin(counter,7),result_sin(counter,8),result_sin(counter,3),result_sin(counter,4),result_sin(counter,5),result_sin(counter,6)] = ELM(tempdataset(train,:),tempdataset(test,:),1,n,'sin');
-             [result_sig(counter,7),result_sig(counter,8),result_sig(counter,3),result_sig(counter,4),result_sig(counter,5),result_sig(counter,6)] = ELM(tempdataset(train,:),tempdataset(test,:),1,n,'sig');
-             [result_hardlim(counter,7),result_hardlim(counter,8),result_hardlim(counter,3),result_hardlim(counter,4),result_hardlim(counter,5),result_hardlim(counter,6)] = ELM(tempdataset(train,:),tempdataset(test,:),1,n,'hardlim');
-             [result_radbas(counter,7),result_radbas(counter,8),result_radbas(counter,3),result_radbas(counter,4),result_radbas(counter,5),result_radbas(counter,6)] = ELM(tempdataset(train,:),tempdataset(test,:),1,n,'radbas');
-             [result_tribas(counter,7),result_tribas(counter,8),result_tribas(counter,3),result_tribas(counter,4),result_tribas(counter,5),result_tribas(counter,6)] = ELM(tempdataset(train,:),tempdataset(test,:),1,n,'tribas');
+             [result_sin(counter,7),result_sin(counter,8),result_sin(counter,3),result_sin(counter,4),result_sin(counter,5),result_sin(counter,6)] = elm_r(tempdataset(train,:),tempdataset(test,:),1,n,'sin');
+             [result_sig(counter,7),result_sig(counter,8),result_sig(counter,3),result_sig(counter,4),result_sig(counter,5),result_sig(counter,6)] = elm_r(tempdataset(train,:),tempdataset(test,:),1,n,'sig');
+             [result_hardlim(counter,7),result_hardlim(counter,8),result_hardlim(counter,3),result_hardlim(counter,4),result_hardlim(counter,5),result_hardlim(counter,6)] = elm_r(tempdataset(train,:),tempdataset(test,:),1,n,'hardlim');
+             [result_radbas(counter,7),result_radbas(counter,8),result_radbas(counter,3),result_radbas(counter,4),result_radbas(counter,5),result_radbas(counter,6)] = elm_r(tempdataset(train,:),tempdataset(test,:),1,n,'radbas');
+             [result_tribas(counter,7),result_tribas(counter,8),result_tribas(counter,3),result_tribas(counter,4),result_tribas(counter,5),result_tribas(counter,6)] = elm_r(tempdataset(train,:),tempdataset(test,:),1,n,'tribas');
              counter = counter+1;
             end
       end
@@ -305,7 +305,6 @@ plot(mean_tribasresult(:,1),mean_tribasresult(:,5))
 xlabel('Hidden Neuron');
 ylabel('Specificity');
 title('Tes Akurasi ELM Menggunakan Fungsi Aktivasi Tribas')
-
 
 subplot(3,2,6)
 plot(mean_sinresult(:,1),mean_sinresult(:,5))

@@ -42,10 +42,10 @@ index_cross = crossvalind('Kfold', class, 10);
     %Y_TEST = binaryVector(Y_TEST);
     
     for j = 1 : col
-        net =  patternnet(hiddenNode(1,j));
-        net.trainFcn = 'trainlm';
-        [net,tr] = train(net,X_TRAIN, Y_TRAIN);
-        prediction = round(net(X_TEST));
+        net_lm = patternnet(hiddenNode(1,j));
+        net_lm.trainFcn = 'trainscg';
+        [net_lm,tr] = train(net_lm,X_TRAIN, Y_TRAIN);
+        prediction = round(net_lm(X_TEST));
         
         prediction = prediction(1,:)';
         result(counter,2)= hiddenNode(1,j);
@@ -84,19 +84,19 @@ subplot(2,2,1)
 plot(mean_result(:,1),mean_result(:,2)) % line plot
 xlabel('Hidden Neuron');
 ylabel('Accuracy');
-title('Accuracy ANN-Levenberg - Marquardt')
+title('Accuracy ANN-Resilient Backpropagation')
 
 subplot(2,2,2)
 plot(mean_result(:,1),mean_result(:,3)) % line plot
 xlabel('Hidden Neuron');
 ylabel('Sensitivity');
-title('Sensitivity ANN-Levenberg - Marquardt')
+title('Sensitivity ANN-Resilient Backpropagation')
 
 subplot(2,2,3)
 plot(mean_result(:,1),mean_result(:,4)) % line plot
 xlabel('Hidden Neuron');
 ylabel('Specificity');
-title('Specificity ANN-Levenberg - Marquardt')
+title('Specificity ANN-Resilient Backpropagation')
 
 subplot(2,2,4)
 plot(mean_result(:,1),mean_result(:,2)) % line plot
@@ -104,5 +104,5 @@ hold on
 plot(mean_result(:,1),mean_result(:,3)) % line plot
 hold on
 plot(mean_result(:,1),mean_result(:,4)) % line plot
-title('Peforma ANN-Levenberg - Marquardt')
+title('Peforma Resilient Backpropagation')
 l = legend('Accuracy','Sensitivity','Specificity');

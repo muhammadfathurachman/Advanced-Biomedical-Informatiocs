@@ -1,4 +1,4 @@
-function [TrainingTime, TestingTime,Sensitivity, Specificity, TrainingAccuracy, TestingAccuracy] = elm(TrainingData_File, TestingData_File, Elm_Type, NumberofHiddenNeurons, ActivationFunction)
+function [TrainingTime, TestingTime,Sensitivity, Specificity, TrainingAccuracy, TestingAccuracy] = elm_r(TrainingData_File, TestingData_File, Elm_Type, NumberofHiddenNeurons, ActivationFunction)
 
 % Usage: elm(TrainingData_File, TestingData_File, Elm_Type, NumberofHiddenNeurons, ActivationFunction)
 % OR:    [TrainingTime, TestingTime, TrainingAccuracy, TestingAccuracy] = elm(TrainingData_File, TestingData_File, Elm_Type, NumberofHiddenNeurons, ActivationFunction)
@@ -135,10 +135,11 @@ end
 clear tempH;                                        %   Release the temparary array for calculation of hidden neuron output matrix H
 
 %%%%%%%%%%% Calculate output weights OutputWeight (beta_i)
-OutputWeight=pinv(H') * T';                        % implementation without regularization factor //refer to 2006 Neurocomputing paper
-%OutputWeight=inv(eye(size(H,1))/C+H * H') * H * T';   % faster method 1 //refer to 2012 IEEE TSMC-B paper
+%OutputWeight=pinv(H') * T';                        % implementation without regularization factor //refer to 2006 Neurocomputing paper
+C = 2048;
+OutputWeight=inv(eye(size(H,1))/C+H * H') * H * T';   % faster method 1 //refer to 2012 IEEE TSMC-B paper
 %implementation; one can set regularizaiton factor C properly in classification applications 
-%C = 2^10;
+
 %OutputWeight=(eye(size(H,1))/C+H * H') \ H * T';      % faster method 2 //refer to 2012 IEEE TSMC-B paper
 %implementation; one can set regularizaiton factor C properly in classification applications
 

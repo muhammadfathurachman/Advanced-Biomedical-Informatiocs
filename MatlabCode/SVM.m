@@ -19,9 +19,8 @@ end
 
 %% Distinct Variable and Class target
 
-
 %% K-FoldCrossvalidation
-REPEATED = 10;
+REPEATED = 100;
 N = 10;
 class = tempdataset(:,25);
 INDEX = crossvalind('Kfold',class,N);
@@ -57,7 +56,6 @@ for j = 1 : REPEATED
         [result_rbf(counter,1),result_rbf(counter,2),result_rbf(counter,3)] = CM(Y_test, y_predicted_rbf);
         [result_gauss(counter,1),result_gauss(counter,2),result_gauss(counter,3)] = CM(Y_test, y_predicted_gauss);
         [result_linear(counter,1),result_linear(counter,2),result_linear(counter,3)] = CM(Y_test, y_predicted_linear);
-        
         counter = counter+1;
     end
 end
